@@ -1,0 +1,139 @@
+﻿@model DiscussionMVCAppOaks.ViewModel.LotSearchViewModel
+@{
+    ViewData["Title"] = "SearchLots";
+}
+
+<h3>Search Lots</h3>
+
+<form asp-controller="Lots" asp-action="SearchLotsResult" method="post">
+
+    <div class="form-group">
+        <label>Should lot be currently available?</label>
+        @Html.CheckBoxFor(m => m.IsLotCurrentlyAvailable, new { @checked = "unchecked" })
+    </div>
+
+    <div class="=" form-group>
+        <label>Optionally select a day type (Weekday or Weekend)</label>
+        <select asp-for="TypeOfDay" class="form-control">
+            <option value="">None</option>
+            <option value="Weekday">Weekday</option>
+            <option value="Weekend">Weekend</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <lablel>Optionally select a lot type</lablel>
+        <select asp-for="LotTypeID" asp-items="ViewBag.LotTypes" class="form-control">
+            <option value=null>None</option>
+        </select>
+    </div>
+
+    @*<div class="form-group">
+        <lablel>How many rows to display on each page?</lablel>
+        <input asp-for="InputPageSize" class="form-control">
+        </input>
+    </div>*@
+
+    <button name="searchButton" value="Active" type="submit" class="btn btn-primary">Search Lots</button>
+
+</form>
+
+@*results section*@
+
+
+@if (Model.LotSearchResult.Data.Any())
+{
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Lot Number</th>
+                <th>
+                    <a class="btn btn-primary" asp-controller="Lots" asp-action="SearchLotsResult"
+                       asp-route-sortOrder="@ViewBag.LotNameSortParam"
+                       asp-route-IsLotCurrentlyAvailable="@ViewBag.IsLotCurrentlyAvailable"
+                       asp-route-TypeOfDay="@ViewBag.TypeOfDay"
+                       asp-route-LotTypeID="@ViewBag.LotTypeID"
+                       asp-route-InputPageSize="@ViewBag.InputPageSize"
+                       asp-route-PageNumber="@Model.LotSearchResult.PageNumber">
+                        Lot Name
+
+                        @if ((ViewBag.LotNameImage) == "descending")
+                        {
+                            <img src="~/images/DescendingImage.png" width="20" ; height="20" />
+                        }
+                    </a>
+                </th>
+                <th>Lot Address</th>
+                <th>Lot Type: TypeOfDay - StartTime and EndTime</th>
+                @if (User.IsInRole("ParkingEmployee"))
+                {
+                    <th></th>
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (Lot eachLot in Model.LotSearchResult.Data)
+            {
+                <tr>
+                    <td>@eachLot.LotNumber</td>
+                    <td>@eachLot.LotName</td>
+                    <td>@eachLot.LotAddress</td>
+                    <td>
+                        @foreach (LotStatus eachLotStatus in eachLot.LotStatuses)
+                        {
+                            @(eachLotStatus.LotType.LotTypeName + " on "
++ eachLotStatus.TypeOfDay + " from "
++ eachLotStatus.StartTime.TimeOfDay
++ " to " + eachLotStatus.EndTime.TimeOfDay)<br />
+                        }
+                    </td>
+                    @if (User.IsInRole("ParkingEmployee"))
+                    {
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Lots" asp-action="EditLot" asp-route-lotID="@eachLot.LotID">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Lots" asp-action="ConfirmDeleteLot" asp-route-lotID="@eachLot.LotID">Delete</a>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+    <partial name="PageNumberPartial" view-data="ViewData" model="Model"/>
+
+    <div>
+
+    @{var CurrentPageSize = ViewBag.InputPageSize;}
+
+        @if (CurrentPageSize == 2)
+        {
+        <btn class="btn btn-secondary" disabled> 2 per page</btn>
+        }
+        else
+        {
+
+            ViewBag.InputPageSize = 2;
+        <partial name="PageSizePartial" view-data="ViewData" model="Model" />
+
+        }
+    @if (CurrentPageSize == 3)
+    {
+        <btn class="btn btn-secondary" disabled> 3 per page</btn>
+    }
+    else
+    {
+
+        ViewBag.InputPageSize = 3;
+        <partial name="PageSizePartial" view-data="ViewData" model="Model" />
+
+    }
+        </div>
+        }

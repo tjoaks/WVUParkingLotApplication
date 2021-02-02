@@ -1,0 +1,79 @@
+﻿@model  DistanceMatrixViewModel
+@{
+    ViewData["Title"] = "Distance Matrix";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<form asp-controller="Permits" asp-action="DetermineDistanceMatrixResult" method="post">
+
+    <div class="form-group">
+        <label>Select an employee</label>
+        <select asp-for="WvuEmployeeID" asp-items="ViewBag.Employees" class="form-control">
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Find Distance Matrix</button>
+
+</form>
+
+@*results section*@
+
+
+
+@if (Model.DistanceMatrix != null)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Lot Number</th>
+                <th>Lot Name</th>
+                <th>Lot Address</th>
+                <th>
+                    <a class="btn btn-primary"
+                       asp-controller="Permits"
+                       asp-action="DetermineDistanceMatrixResult"
+                       asp-route-sortOrder="@ViewBag.DistanceSortParam">
+                        Distance in Miles
+                        @if(ViewBag.DistanceImage == "descending")
+                        {
+                            <img src="~/images/DescendingImage.png" />
+                        }
+                    </a>
+                </th>
+                <th>
+                    <a class="btn btn-primary"
+                       asp-controller="Permits"
+                       asp-action="DetermineDistanceMatrixResult"
+                       asp-route-sortOrder="@ViewBag.DurationSortParam">
+                        Duration in Minutes
+                        @if (ViewBag.DurationImage == "descending")
+                        {
+                            <img src="~/images/DescendingImage.png" />
+                        }
+                    </a>
+                </th>
+                <th>Available Spots</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (DistanceMatrixViewModel eachMatrixRow in Model.DistanceMatrix)
+            {
+            <tr>
+                <td>@eachMatrixRow.LotNumber</td>
+                <td>@eachMatrixRow.LotName</td>
+                <td>@eachMatrixRow.LotAddress</td>
+                <td>@eachMatrixRow.DistanceInMiles</td>
+                <td>@eachMatrixRow.DurationInMinutes</td>
+                <td>@eachMatrixRow.AvailableSpots</td>
+                <td>
+                    
+                }
+
+            </tr>
+            }
+        </tbody>
+
+    </table>
+}

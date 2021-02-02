@@ -1,0 +1,34 @@
+﻿@model DiscussionMVCAppOaks.Models.LotModel.Lot
+
+<h4>Edit Lots</h4>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="EditLot" method="post">
+
+    @Html.HiddenFor(m => m.LotID)
+
+    <div class="form-group">
+        <label>Lot Number</label>
+        <input asp-for="LotNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Lot Name</label>
+        <input asp-for="LotName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Lot Address</label>
+        <input asp-for="LotAddress" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Total Spots</label>
+        <input asp-for="TotalSpots" class="form-control" />
+    </div>
+
+
+    <button type="Submit" class="btn btn-primary">Edit Lot</button>
+
+</form>

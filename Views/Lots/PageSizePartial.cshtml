@@ -1,0 +1,11 @@
+﻿<a class="btn btn-primary"
+   asp-controller="Lots"
+   asp-action="SearchLotsResult"
+   asp-route-sortOrder="@ViewBag.CurrentSortOrder"
+   asp-route-IsLotCurrentlyAvailable="@ViewBag.IsLotCurrentlyAvailable"
+   asp-route-TypeOfDay="@ViewBag.TypeOfDay"
+   asp-route-LotTypeID="@ViewBag.LotTypeID"
+   asp-route-InputPageSize="@ViewBag.InputPageSize"
+   asp-route-PageNumber=1>
+    @ViewBag.InputPageSize per page
+</a>

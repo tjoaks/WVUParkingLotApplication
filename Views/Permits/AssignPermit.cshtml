@@ -1,0 +1,36 @@
+﻿@model AssignPermitViewModel
+@{
+    ViewData["Title"] = "AssignPermit";
+}
+
+<h3>Assign Permit</h3>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
+<form asp-controller="Permits" asp-action="AssignPermit" method="post">
+
+
+
+    <div class="form-group">
+        <label>Select a lot</label>
+        <select asp-for="LotID" asp-items="ViewBag.Lots" class="form-control">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Select an employee</label>
+        <select asp-for="WvuEmployeeID" asp-items="ViewBag.Employees" class="form-control">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Select a start date</label>
+        <input asp-for="StartDate" class="form-control">
+
+    </div>
+    <div class="form-group">
+        <button name="assignPermitButton" value="Active" type="submit" class="btn btn-primary">Assign Permit</button>
+    </div>
+</form>
+  

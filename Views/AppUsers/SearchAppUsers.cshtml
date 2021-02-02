@@ -1,0 +1,47 @@
+﻿@model DiscussionMVCAppOaks.ViewModel.SearchAppUsersViewModel
+@{
+    ViewData["Title"] = "SearchAppUsers";
+}
+
+<h3>SearchAppUsers</h3>
+
+<form asp-controller="AppUsers" asp-action="SearchAppUsers" method="post">
+
+    <div class="=" form-group>
+        <label>Optionally select user type</label>
+        <select asp-for="appUserType" class="form-control">
+            <option value="">None</option>
+            <option value="Visitor">Visitor</option>
+            <option value="WVUEmployee">WVUEmployee</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search Users</button>
+
+</form>
+
+@*Result Section follows. When do we eneter the result section?*@
+
+@*@if (Model.ApplicationUsersList != null)*@
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>User Full Name</th>
+                <th>User Type</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(ApplicationUser eachUser in Model.ApplicationUsersList)
+            {
+                <tr>
+                    <td>@eachUser.Fullname</td>
+                    <td>@eachUser.GetType().Name</td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

@@ -1,0 +1,18 @@
+﻿<cs-pager cs-paging-totalitems="@Model.LotSearchResult.TotalItems"
+          cs-paging-pagenumber="@Model.LotSearchResult.PageNumber"
+          cs-paging-pagesize="@Model.LotSearchResult.PageSize"
+          cs-pagenumber-param="pageNumber"
+          asp-route-sortOrder="@ViewBag.CurrentSortOrder"
+          asp-route-IsLotCurrentlyAvailable="@ViewBag.IsLotCurrentlyAvailable"
+          asp-route-TypeOfDay="@ViewBag.TypeOfDay"
+          asp-route-LotTypeID="@ViewBag.LotTypeID"
+          asp-route-InputPageSize="@ViewBag.InputPageSize"
+          asp-controller=@ViewBag.Controller
+          asp-action=@ViewBag.Action
+          cs-pager-li-current-class="page-item active"
+          cs-pager-li-other-class="page-item"
+          cs-pager-li-non-active-class="page-item disabled"
+          cs-pager-link-current-class="page-link"
+          cs-pager-link-other-class="page-link">
+
+</cs-pager>
