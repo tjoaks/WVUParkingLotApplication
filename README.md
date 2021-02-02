@@ -2,7 +2,7 @@
 
 DISCLAIMER: Google Maps API will NOT be activated as of 12/27/2020 (Google API Trial Expired)
 
-Things used: C#, .NET Core Framework, SQL for database backend, HTML to build Views, CSS for styling, JS to compile data, Google Maps API for maps and distance matrix
+Things used: C#, .NET Core Framework, SQL for database backend, HTML to build Views, CSS for styling, JS to compile data, Google Maps API for maps and distance matrix, Visual Studio for compiling and testing
 
 This application project was designed to give West Virginia University parking lot employees ability to:
 
